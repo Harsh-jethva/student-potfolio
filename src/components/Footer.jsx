@@ -15,7 +15,7 @@ function Footer({ email = 'harsh.jethva@example.com', copyrightOwner = 'Harsh Je
             B.Tech Information Technology (24IT115) • Developing modern, full-stack web applications.
           </p>
           <div className="footer-course-badge">
-            AWD Practical 7 • JWT Auth & Middleware
+            AWD Practical 8 • Performance Optimization & Lazy Loading
           </div>
         </div>
 
@@ -25,6 +25,7 @@ function Footer({ email = 'harsh.jethva@example.com', copyrightOwner = 'Harsh Je
             <li><a href="/">Home</a></li>
             <li><a href="/projects">Projects</a></li>
             <li><a href="/tasks">Task Manager</a></li>
+            <li><a href="/contact">Contact</a></li>
           </ul>
         </div>
 
@@ -37,7 +38,7 @@ function Footer({ email = 'harsh.jethva@example.com', copyrightOwner = 'Harsh Je
               </a>
             </li>
             <li>
-              <a href="https://github me" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
                 💻 GitHub Repository
               </a>
             </li>
@@ -46,11 +47,12 @@ function Footer({ email = 'harsh.jethva@example.com', copyrightOwner = 'Harsh Je
       </div>
 
       <div className="footer-bottom-bar">
-        <p>&copy; {currentYear} {copyrightOwner} (24IT115). All rights reserved.</p>
+        <p>&copy; {currentYear} {copyrightOwner}. All rights reserved.</p>
         <p className="footer-subtext">Charotar University of Science & Technology (CHARUSAT)</p>
       </div>
     </footer>
   )
 }
 
-export default Footer
+// React.memo prevents unnecessary re-renders when parent state (darkMode, user) changes
+export default React.memo(Footer)

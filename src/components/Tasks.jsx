@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, lazy, Suspense } from 'react'
 import { getTasks, createTask, updateTask, deleteTask } from '../api'
+import LoadingFallback from './LoadingFallback.jsx'
+
+// Lazy-loaded heavy third-party component (Chart.js)
+const TaskAnalyticsChart = lazy(() => import('./TaskAnalyticsChart.jsx'))
 
 function Tasks() {
   const [tasks, setTasks] = useState([])
@@ -9,6 +13,7 @@ function Tasks() {
   const [editingId, setEditingId] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [showAnalytics, setShowAnalytics] = useState(false)
 
   const loadTasks = async () => {
     try {
@@ -134,6 +139,22 @@ function Tasks() {
             )}
           </div>
         </form>
+      </div>
+
+      <div className="analytics-section-container">
+        <button
+          type="button"
+          className="btn-analytics-toggle"
+          onClick={() => setShowAnalytics(!showAnalytics)}
+        >
+          {showAnalytics ? 'Hide Analytics Chart' : '📊 View Task Analytics (Lazy Loaded Chart.js)'}
+        </button>
+
+        {showAnalytics && (
+          <Suspense fallback={<LoadingFallback message="Loading Chart.js & Analytics..." />}>
+            <TaskAnalyticsChart tasks={tasks} />
+          </Suspense>
+        )}
       </div>
 
       <h2 className="section-title">Your Tasks</h2>
